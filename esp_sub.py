@@ -23,8 +23,16 @@ ser = get_connection("COM9")
 def on_message(client, userdata, message):
     global max_value
     global min_value
+    
     data = str(message.payload.decode("utf-8"))
+    tokens = data.split()
+    
+    for token in tokens:
+        send(ser, token, 0)
+    
+    
     topic = str(message.topic)
+    bright = []
     if topic == 'esp8266-BFBF/range':
         sen_value = float(data)
         print(f"sen_value: {sen_value}")  
@@ -32,7 +40,9 @@ def on_message(client, userdata, message):
             send(ser, 'd'.encode(), 0)
         else:
             send(ser, 'u'.encode(), 0)
-
+        if():
+            send(ser, 'u'.encode(), 0)
+            
 broker="broker.emqx.io"
 
 client = mqtt_client.Client(f'lab_{random.randint(10000, 99999)}')
